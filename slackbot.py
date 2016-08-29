@@ -1,36 +1,14 @@
 import sys
 from event_feed import Event, EventFeed
 from slackclient import SlackClient
+import settings as st
 
-# Requires settings.txt file, formatted as such:
+# Requires settings.py file, formatted as such:
 """ 
-SLACK_TOKEN = your_slack_api_token
-SLACK_CHANNEL = #channel_name
-SLACK_USERNAME = YourBotName
+SLACK_TOKEN = "your_slack_api_token"
+SLACK_CHANNEL = "#channel_name"
+SLACK_USERNAME = "YourBotName"
 """
-
-def settings_helper():
-	try:
-		settings_file = open("settings.txt", "r")
-	except IOError:
-		print '"settings.txt" not found'
-		sys.exit()
-	token = None
-	channel = None
-	username = None
-	for line in settings_file:
-		line = line.replace(" ", "").split("=")
-		if line[0] == "SLACK_TOKEN":
-			token = line[1]
-		elif line[0] == "SLACK_USERNAME":
-			username = line[1]
-		elif line[0] == "SLACK_CHANNEL":
-			channel = line[1]
-	if not token or not channel or not username:
-		print 'Improperly formatted "settings.txt"'
-		sys.exit()
-	return token, username, channel
-
 class SlackBot(object):
 
 	def __init__(self, token, username, channel):
@@ -62,5 +40,4 @@ class SlackBot(object):
 		)
 
 if __name__ == "__main__":
-	SLACK_TOKEN, SLACK_USERNAME, SLACK_CHANNEL = settings_helper()
-	SlackBot(SLACK_TOKEN, SLACK_USERNAME, SLACK_CHANNEL).update()
+	SlackBot(st.SLACK_TOKEN, st.SLACK_USERNAME, st.SLACK_CHANNEL).update()
