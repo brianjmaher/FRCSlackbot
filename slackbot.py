@@ -22,13 +22,14 @@ def settings_helper():
 		line = line.replace(" ", "").split("=")
 		if line[0] == "SLACK_TOKEN":
 			token = line[1]
-		elif line[0] == "SLACK_CHANNEL":
-			channel = line[1]
 		elif line[0] == "SLACK_USERNAME":
 			username = line[1]
+		elif line[0] == "SLACK_CHANNEL":
+			channel = line[1]
 	if not token or not channel or not username:
 		print 'Improperly formatted "settings.txt"'
 		sys.exit()
+	return token, username, channel
 
 class SlackBot(object):
 
