@@ -2,12 +2,11 @@ import sys
 from event_feed import Event, EventFeed
 from slackclient import SlackClient
 
-
-#Requires settings.txt file to work, formatted as such:
+# Requires settings.txt file, formatted as such:
 """ 
-SLACK_TOKEN = "xoxp-24282660422-24283165281-27325068118-7e0029c775"
-SLACK_CHANNEL = "#comp-feed"
-SLACK_USERNAME = "CompBot"
+SLACK_TOKEN = your_slack_api_token
+SLACK_CHANNEL = #channel_name
+SLACK_USERNAME = YourBotName
 """
 
 def settings_helper():
@@ -30,7 +29,6 @@ def settings_helper():
 	if not token or not channel or not username:
 		print 'Improperly formatted "settings.txt"'
 		sys.exit()
-
 
 class SlackBot(object):
 
@@ -63,4 +61,5 @@ class SlackBot(object):
 		)
 
 if __name__ == "__main__":
+	SLACK_TOKEN, SLACK_USERNAME, SLACK_CHANNEL = settings_helper()
 	SlackBot(SLACK_TOKEN, SLACK_USERNAME, SLACK_CHANNEL).update()
