@@ -10,7 +10,7 @@ SLACK_TOKEN = "your_slack_api_token"
 SLACK_CHANNEL = "#channel_name"
 SLACK_USERNAME = "YourBotName"
 """
-EVENT_ARCHIVE = "events.txt"
+
 
 class SlackBot(object):
 
@@ -27,17 +27,16 @@ class SlackBot(object):
 		new_events = self._filter_new_events(events)
 		new_events.sort(key=lambda event: (event.week, int(not event.is_regional), \
 			event.event_type, event.end_date, event.name))
-		if len(new_events) > 0:
-			self._post_message("\nUPDATE:\n")
-
-			for event in new_events:
-				self._post_event(event)
+		for event in new_events:
+			self._post_event(event)
 
 	def _get_events(self):
 		return self.event_feed.get_events()
 
 	def _post_event(self, event_obj):
-		self._post_message(str(event_obj))
+		message = "*NEW*: %s" % str(event_obj)
+		self._post_message(message)
+		print message
 
 	def _post_message(self, text):
 		self.client.api_call(
@@ -55,10 +54,10 @@ class SlackBot(object):
 		return new_events
 
 	def _get_event_archive(self):	
-		return [line.strip() for line in open(EVENT_ARCHIVE, "r")]
+		return [line.strip() for line in open(st.EVENT_ARCHIVE, "r")]
 
 	def _archive_event(self, event):
-		f = open(EVENT_ARCHIVE, "a")
+		f = open(st.EVENT_ARCHIVE, "a")
 		f.write(event.name + "\n")
 		f.close()
 
