@@ -54,7 +54,15 @@ class SlackBot(object):
 		return new_events
 
 	def _get_event_archive(self):	
-		return [line.strip() for line in open(st.EVENT_ARCHIVE, "r")]
+		try:
+			return [line.strip() for line in open(st.EVENT_ARCHIVE, "r")]
+		except IOError as e:
+			if e.errno == 2:
+				f = open(st.EVENT_ARCHIVE, "w")
+				f.close()
+				return []
+			else:
+				raise e
 
 	def _archive_event(self, event):
 		f = open(st.EVENT_ARCHIVE, "a")
