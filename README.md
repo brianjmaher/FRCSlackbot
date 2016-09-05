@@ -1,6 +1,7 @@
 # FRCSlackbot
 
 Dependencies: beautifulsoup4, slackclient
+
 The packages can be installed with PIP by running "pip install beautifulsoup4" and "pip install slackclient".
 
 To run:
