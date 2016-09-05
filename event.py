@@ -59,5 +59,5 @@ class Event(object):
 		self.is_regional = (self.event_type == "Regional")
 
 	def __str__(self):
-		return "*Week %d %s:* %s, _%s to %s_" % (self.week, self.event_type, self.name, \
-			self.start_date, self.end_date)
+		return "*Week %d %s:* %s, _%s to %s_, at %s in %s" % (self.week, self.event_type, self.name, \
+			self.start_date, self.end_date, self.venue, self.location)
